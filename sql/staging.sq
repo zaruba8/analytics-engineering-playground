@@ -1,0 +1,20 @@
+-- называем таблицу не orders а trips потому что табличка только с успешными заказами
+create or replace table `nth-plexus-489708-i1.staging.trips` as
+
+select
+  unique_key as trip_id,
+  taxi_id,
+  trip_start_timestamp as trip_start_tmp,
+  trip_end_timestamp as trip_end_tmp,
+  trip_seconds as trip_duration_seconds,
+  trip_miles as distance_miles,
+  fare,
+  tips,
+  tolls,
+  trip_total,
+  payment_type,
+  company
+from
+  `nth-plexus-489708-i1.raw.taxi_trips`
+where
+  unique_key is not null;
