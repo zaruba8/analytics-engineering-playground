@@ -39,3 +39,34 @@ from
   join `nth-plexus-489708-i1.marts.dim_company` c on t.company = c.company_name
   join `nth-plexus-489708-i1.marts.dim_payment_type` p on t.payment_type = p.payment_type;
 
+-- потом делаем календарь (с нуля потому что в таблице не каждый день были трипы)
+create or replace table `nth-plexus-489708-i1.marts.dim_date` as
+select
+  date_day,
+  extract(year from date_day) as year,
+  extract(month from date_day) as month,
+  extract(day from date_day) as day,
+  extract(dayofweek from date_day) as day_of_week,
+  case when extract(dayofweek from date_day) in (6, 7) then 'weekend' else 'weekday' end as day_type
+from 
+  unnest(generate_date_array((
+    select min(cast(trip_start_tmp as date))
+    from `nth-plexus-489708-i1.staging.trips`),
+    (select max(cast(trip_start_tmp as date))
+    from  `nth-plexus-489708-i1.staging.trips`))) as date_day;
+
+-- создаем витрину агрегатов по дням
+create or replace table `nth-plexus-489708-i1.marts.agg_trips_daily` as
+select
+  d.date_day,
+  d.day_type,
+  count(t.trip_id) as trips,
+  round(sum(t.trip_total), 0) as revenue
+from 
+  `nth-plexus-489708-i1.marts.fact_trips` t
+  join `nth-plexus-489708-i1.marts.dim_date` d on date(t.trip_start_tmp) = d.date_day
+group by
+  d.date_day,
+  d.day_type;
+
+
