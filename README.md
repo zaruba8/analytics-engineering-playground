@@ -1,12 +1,12 @@
 # Analytics Engineering Playground
 
-Learning project focused on building a small analytical platform using BigQuery and SQL-based transformations.
+Practice project focused on analytical data modeling, SQL transformations and reporting-oriented workflows in BigQuery.
 
-The project explores core analytics engineering concepts including data modeling, layered architecture, analytical marts and data quality checks.
+The goal of the project is to explore how analytical datasets can be structured using layered transformations, fact/dimension modeling and basic data quality checks.
 
 ---
 
-## Tech Stack
+# Tech Stack
 
 - BigQuery
 - SQL
@@ -14,57 +14,93 @@ The project explores core analytics engineering concepts including data modeling
 
 ---
 
-## Concepts Practiced
+# Project Structure
 
-- Data Modeling
-- Star Schema Design
-- ETL / ELT Workflows
-- Data Transformation
-- Analytical Data Marts
-- Data Quality Checks
-- BigQuery SQL
+The project follows a simple layered approach:
 
----
+RAW → STAGING → MARTS
 
-## Project Architecture
+## Layers
 
-RAW → STAGING → MARTS → DATA MART
+### RAW
+Initial source tables loaded into BigQuery.
 
----
+### STAGING
+Data cleaning and standardization layer.
 
-## Implemented
+Examples:
+- column renaming
+- filtering invalid rows
+- basic preprocessing
 
-- Raw data ingestion and cleaning
-- Staging layer transformations
-- Star schema modeling (`fact_trips` + dimensions)
-- Analytical marts (`daily_metrics`, `company_metrics`)
-- Basic data quality validation checks
+### MARTS
+Analytical layer with fact and dimension tables used for reporting and aggregation.
 
----
-
-## Learning Outcomes
-
-Through this project I practiced:
-
-- Building fact and dimension tables
-- Working with BigQuery datasets
-- Designing analytical data marts
-- Structuring transformation layers
-- Writing analytical SQL queries
-- Implementing basic data quality checks
+Implemented:
+- fact_trips
+- dim_company
+- company_daily_metrics
 
 ---
 
-## Planned Improvements
+# Implemented Features
+
+## SQL Transformations
+- data cleaning
+- aggregation queries
+- joins
+- analytical calculations
+
+## Data Modeling
+- fact and dimension tables
+- star schema principles
+- reporting-oriented structure
+
+## Analytical Marts
+Examples:
+- company-level daily metrics
+- revenue aggregation
+- average check calculations
+
+## Data Quality Checks
+Basic SQL-based validation checks:
+- NULL checks
+- uniqueness checks
+- logging validation results
+
+---
+
+# Example Workflow
+
+1. Load raw taxi trip dataset
+2. Build staging layer
+3. Create fact and dimension tables
+4. Generate analytical marts
+5. Run data quality checks
+6. Use resulting tables for reporting and dashboards
+
+---
+
+# What I Practiced
+
+- working with BigQuery datasets
+- SQL-based transformations
+- layered data structure
+- analytical data modeling
+- aggregation logic
+- basic data quality validation
+
+---
+
+# Planned Improvements
 
 - dbt integration
-- Automated testing
-- Documentation generation
-- Additional analytical marts
-- Orchestration experiments
+- automated testing
+- orchestration experiments
+- additional marts and metrics
 
 ---
 
-## Purpose
+# Repository Purpose
 
-This repository is part of my learning path in analytics engineering and modern data stack tools
+This repository is part of my learning process in analytics engineering and modern analytical workflows.
